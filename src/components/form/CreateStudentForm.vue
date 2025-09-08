@@ -56,7 +56,7 @@
           />
         </div>
         <div>
-          <label for="teacher" class="block text-sm font-medium text-gray-700">
+          <label class="block text-sm font-medium text-gray-700">
             Классный руководитель
           </label>
           <select
@@ -66,8 +66,8 @@
             <option value="" disabled>Выберите классного руководителя</option>
             <option
               v-for="teacher in teachers"
-              :key="teacher.teacher_id"
-              :value="teacher.teacher_id"
+              :key="teacher.user_id"
+              :value="teacher.user_id"
             >
               {{ teacher.name }} {{ teacher.surname }} {{ teacher.fathername }}
             </option>

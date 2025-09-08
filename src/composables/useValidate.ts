@@ -13,7 +13,7 @@ export const teacherData = reactive({
   fathername: "",
   profeccion: "",
   competition_activities: "",
-  userId: "",
+  user_id: "",
   teacherId: "",
 });
 

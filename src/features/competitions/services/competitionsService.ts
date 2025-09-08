@@ -43,7 +43,7 @@ export async function deleteCompetitionService(competition_id: string) {
 }
 
 export async function getCompetitionService() {
-  const res = await axiosR.get('/competition', {
+  const res = await axiosR.get('/admin/competition', {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

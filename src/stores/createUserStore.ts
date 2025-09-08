@@ -30,7 +30,7 @@ export const useCreateUserStore = defineStore('createUserStore', {
     async createUser(user: CreatedUser) {
       let res = await addUserService(user);
       this.userData = res.data;
-      this.userId = res.data.user_id;
+      this.userId = await res.data.id;
       console.log(this.userData);
     },
 

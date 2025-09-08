@@ -47,7 +47,7 @@ export async function handleSubmit() {
 export async function handleSumbitTeacher() {
   if (validateForm()) {
     try {
-      teacherData.userId = createUser.userId;
+      teacherData.user_id = createUser.userId;
       await createUser.addTeacher({ ...teacherData });
       isCreated.value = true;
       teacherData.competition_activities = '';
@@ -64,6 +64,7 @@ export async function handleSumbitTeacher() {
 export async function handleSumbitStudent() {
   if (validateForm()) {
     try {
+      console.log(studentData)
       studentData.user_id = createUser.userId;
       await createUser.addStudent({ ...studentData });
       isCreated.value = true;
