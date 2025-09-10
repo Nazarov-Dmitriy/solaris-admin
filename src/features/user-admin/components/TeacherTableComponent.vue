@@ -87,15 +87,18 @@ function deleteTeacher() {
 }
 
 function changeTeacher() {
-  if (selectedItem.value?.teacher_id) {
+  console.log(selectedItem)
+  if (selectedItem.value?.user_id) {
     userStore
-      .changeTeacher(String(selectedItem.value.teacher_id), selectedItem.value)
+      .changeTeacher(String(selectedItem.value.user_id), selectedItem.value)
       .then(() => {
-        userStore.fetchTeachers();
         closeDialogs();
       })
       .catch((err) => {
         console.error('Ошибка при изменении учителя:', err);
+      })
+      .finally(() => {
+        userStore.fetchTeachers(true);
       });
   }
 }
@@ -111,6 +114,6 @@ function deleteSelectedItem(data: any) {
 }
 
 onMounted(() => {
-  userStore.fetchTeachers();
+  userStore.fetchTeachers(true);
 });
 </script>

@@ -6,6 +6,7 @@
     :style="{ width: '25rem' }"
     close-icon="none"
   >
+  <!-- STUDENT || TEACHER -->
     <div v-if="user" class="flex flex-col gap-4">
       <div
         class="flex flex-col gap-4"
@@ -59,7 +60,7 @@
       </div>
     </div>
 
-    <!--  -->
+    <!-- USER -->
     <div class="flex flex-col gap-4" v-if="props.type === 'user'">
       <div class="flex items-center gap-4">
         <label for="competitionTitle" class="font-semibold w-24">Логин</label>
@@ -96,7 +97,7 @@
         />
       </div>
     </div>
-    <!--  -->
+    <!-- COMPETITION -->
 
     <div class="flex flex-col gap-4" v-if="props.type === 'competition'">
       <div class="flex items-center gap-4">
@@ -134,6 +135,33 @@
         />
       </div>
     </div>
+
+    <!-- NAPRAM -->
+
+    <div class="flex flex-col gap-4" v-if="props.type === 'napram'">
+      <div class="flex items-center gap-4">
+        <label for="napramTitle" class="font-semibold w-24"
+          >Название</label
+        >
+        <InputText
+          id="napramTitle"
+          class="flex-auto"
+          v-model="napram!.title"
+          autocomplete="true"
+        />
+      </div>
+      <div class="flex items-center gap-4">
+        <label for="napramImage" class="font-semibold w-24"
+          >Картинка</label
+        >
+        <FileInput
+          v-model="napram!.image"
+          id="napramImage"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          style="resize: none"
+        />
+      </div>
+    </div>
     <div class="flex justify-end gap-2 mt-4">
       <Button
         type="button"
@@ -151,6 +179,7 @@
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
+import FileInput from '../fileInput/FileInput.vue'
 import { computed } from 'vue';
 import Textarea from 'primevue/textarea';
 

@@ -24,7 +24,7 @@ export function clearAddedUserState() {
   showTeacherForm.value = false;
   showStudentForm.value = false;
 
-  router.push('/account');
+  /* router.push('/account'); */
 }
 
 export async function handleSubmit() {

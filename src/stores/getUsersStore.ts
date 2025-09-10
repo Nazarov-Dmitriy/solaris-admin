@@ -52,8 +52,8 @@ export const useGetUserStore = defineStore('getUser', {
       }
     },
 
-    async fetchStudents() {
-      if (this.cachedStudents) {
+    async fetchStudents(refetch: boolean = false) {
+      if (this.cachedStudents && !refetch) {
         this.students = this.cachedStudents;
         return;
       }
@@ -67,8 +67,8 @@ export const useGetUserStore = defineStore('getUser', {
       }
     },
 
-    async fetchTeachers() {
-      if (this.cachedTeachers) {
+    async fetchTeachers(refetch: boolean = false) {
+      if (this.cachedTeachers && !refetch) {
         this.teachers = this.cachedTeachers;
         return;
       }

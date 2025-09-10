@@ -4,6 +4,6 @@ export interface CreatedTeacher {
   fathername: string;
   profeccion: string;
   competition_activities: string;
-  userId: string;
+  user_id: string;
   teacherId: string;
 }

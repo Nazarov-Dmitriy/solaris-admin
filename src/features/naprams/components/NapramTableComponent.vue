@@ -2,14 +2,13 @@
   <div class="flex flex-column gap-2">
     <DataTable
       paginator
-      :rows="10"
+      :rows="5"
       showGridlines
       :value="students"
       tableStyle="width: 80vw;"
     >
-      <Column field="name" header="Имя"></Column>
-      <Column field="surname" header="Фамилия"></Column>
-      <Column field="fathername" header="Отчество"></Column>
+      <Column field="name" header="Название"></Column>
+      <Column field="image" header="Картинка"></Column>
       <Column style="width: 80px">
         <template #body="{ data }">
           <div class="flex flex-row justify-center gap-2">
@@ -29,14 +28,14 @@
     </DataTable>
     <Teleport to="body">
       <ChangeModal
-        :user="selectedItem"
+        :napram="selectedItem"
         :visible="changeDialogVisible"
         @update:visible="closeDialogs"
         @save="changeStudent"
         type="student"
       />
       <DeleteModal
-        :user="selectedItem"
+        :napram="selectedItem"
         :visible="deleteDialogVisible"
         @update:visible="closeDialogs"
         @delete="deleteStudent"

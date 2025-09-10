@@ -1,5 +1,5 @@
 <template>
-  <<<<<<< HEAD
+  <!-- <<<<<<< HEAD -->
   <div class="mx-auto max-w-[1440px] px-[10px]">
     <div class="flex flex-col gap-4">
       main

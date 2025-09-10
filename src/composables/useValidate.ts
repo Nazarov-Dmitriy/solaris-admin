@@ -23,6 +23,7 @@ export const studentData = reactive({
   fathername: "",
   user_id: "",
   teacher_id: "",
+  class_name: "",
 });
 
 export const errors = reactive({
