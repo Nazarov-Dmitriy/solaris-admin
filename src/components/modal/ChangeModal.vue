@@ -146,7 +146,7 @@
         <InputText
           id="napramTitle"
           class="flex-auto"
-          v-model="napram!.title"
+          v-model="napram!.name"
           autocomplete="true"
         />
       </div>
@@ -154,11 +154,19 @@
         <label for="napramImage" class="font-semibold w-24"
           >Картинка</label
         >
-        <FileInput
-          v-model="napram!.image"
+        <FileUpload
+          @select="(e: FileUploadSelectEvent) => $emit('imageSelected', e.files)"
+          @remove="() => $emit('imageDeleted')"
           id="napramImage"
           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           style="resize: none"
+          :fileLimit="1"
+          :showUploadButton="false"
+          :showCancelButton="false"
+          chooseLabel="Выбрать фото"
+          accept='image/png, .jpeg'
+          invalidFileTypeMessage='Подходящие типы файлов: .png, .jpg'
+          invalidFileLimitMessage='Нельзя загрузить больше одного файла'
         />
       </div>
     </div>
@@ -179,7 +187,7 @@
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
-import FileInput from '../fileInput/FileInput.vue'
+import { FileUpload, FileUploadSelectEvent } from 'primevue';
 import { computed } from 'vue';
 import Textarea from 'primevue/textarea';
 
@@ -191,6 +199,10 @@ const props = defineProps({
   },
   competition: Object,
   type: String,
+  napram: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 
 const type = computed(() => {
@@ -198,9 +210,15 @@ const type = computed(() => {
   if (props.type === 'student') return 'ученика';
   if (props.type === 'competition') return 'конкурс';
   if (props.type === 'user') return 'пользователя';
+  if (props.type === 'napram') return 'напрвление';
 });
 
-const emit = defineEmits(['update:visible', 'save']);
+const emit = defineEmits<{
+  'update:visible': [value: boolean]
+  'save': []
+  'imageSelected': [files: File[]]
+  'imageDeleted': []
+}>();
 
 function closeDialog() {
   emit('update:visible', false);

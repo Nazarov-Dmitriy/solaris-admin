@@ -4,11 +4,15 @@
       paginator
       :rows="5"
       showGridlines
-      :value="students"
+      :value="naprams"
       tableStyle="width: 80vw;"
     >
       <Column field="name" header="Название"></Column>
-      <Column field="image" header="Картинка"></Column>
+      <Column field="image" header="Картинка">
+        <template #body="slotProps">
+            <img :src="`${slotProps.data.image}`" :alt="slotProps.data.image" class="w-24 rounded" />
+        </template>
+      </Column>
       <Column style="width: 80px">
         <template #body="{ data }">
           <div class="flex flex-row justify-center gap-2">
@@ -31,15 +35,25 @@
         :napram="selectedItem"
         :visible="changeDialogVisible"
         @update:visible="closeDialogs"
-        @save="changeStudent"
-        type="student"
+        @save="changeNapram"
+        @imageSelected="(files: File[]) => {
+          if (selectedItem) {
+            selectedItem.image = files[0];
+          }
+        }"
+        @imageDeleted="() => {
+          if (selectedItem) {
+            selectedItem.image = undefined;
+          }
+        }"
+        type="napram"
       />
       <DeleteModal
         :napram="selectedItem"
         :visible="deleteDialogVisible"
         @update:visible="closeDialogs"
-        @delete="deleteStudent"
-        type="student"
+        @delete="deleteNapram"
+        type="napram"
       />
     </Teleport>
   </div>
@@ -47,9 +61,10 @@
 
 <script setup lang="ts">
 enum DataTableType {
-  Users,
+  /* Users,
   Teachers,
-  Students,
+  Students, */
+  Napram
 }
 import { ref, onMounted, inject, computed, watch } from 'vue';
 import Button from 'primevue/button';
@@ -60,8 +75,10 @@ import DeleteModal from '../../../components/modal/DeleteModal.vue';
 import { useGetUserStore } from '../../../stores/getUsersStore';
 import { useDialog } from '../../../composables/useShowDialogs';
 import { UserInfo } from '../../../interfaces/user/userInterfaces';
+import { useNapramStore } from '../../../stores/napramStore';
+import { CreatedNapram } from '../../../interfaces/create/createNapram';
 
-const userService = inject('UserService') as any;
+/* const userService = inject('UserService') as any;
 const usersList = ref();
 const value = ref<string | number>(DataTableType.Users);
 
@@ -69,10 +86,10 @@ const options = ref<{ label: string; value: string | number }[]>([
   { label: 'Пользователи', value: DataTableType.Users },
   { label: 'Учителя', value: DataTableType.Teachers },
   { label: 'Ученики', value: DataTableType.Students },
-]);
+]); */
 
-const userStore = useGetUserStore();
-const students = computed(() => userStore.getStudents);
+const napramStore = useNapramStore();
+const naprams = computed(() => napramStore.getNaprams);
 
 const {
   selectedItem,
@@ -81,7 +98,7 @@ const {
   openChangeDialog,
   openDeleteDialog,
   closeDialogs,
-} = useDialog();
+} = useDialog<CreatedNapram>();
 
 /* watch(
   () => userStore.getStudents,
@@ -91,12 +108,12 @@ const {
   { immediate: true },
 );
  */
-function deleteStudent() {
-  if (selectedItem.value?.user_id) {
-    userStore
-      .deleteStudent(String(selectedItem.value.user_id))
+function deleteNapram() {
+  if (selectedItem.value?.name) {
+    napramStore
+      .deleteNapram(selectedItem.value.id)
       .then(() => {
-        userStore.fetchStudents(true);
+        napramStore.fetchNaprams(true);
       })
       .catch((err) => {
         console.error('Ошибка при удалении пользователя:', err);
@@ -104,10 +121,16 @@ function deleteStudent() {
   }
 }
 
-function changeStudent() {
-  if (selectedItem.value?.user_id) {
-    userStore
-      .changeStudent(String(selectedItem.value.user_id), selectedItem.value)
+function changeNapram() {
+  if (selectedItem.value?.name) {
+    const formData = new FormData();
+    formData.append('name', selectedItem.value.name);
+    formData.append('_method', "PUT");
+    if (selectedItem.value.image instanceof File) {
+      formData.append('image', selectedItem.value.image);
+    }
+    napramStore
+      .updateNapram(selectedItem.value.id,formData)
       .then(() => {
         closeDialogs();
       })
@@ -115,7 +138,7 @@ function changeStudent() {
         console.error('Ошибка при изменении ученика:', err);
       })
       .finally(() => {
-        userStore.fetchStudents(true);
+        napramStore.fetchNaprams(true);
       });
   }
 }
@@ -130,19 +153,8 @@ function deleteSelectedItem(data: any) {
   openDeleteDialog(data);
 }
 
-interface User {
-  user_id: number;
-  username: string;
-  email: string;
-  category: string;
-}
-
-interface ApiResponse<T> {
-  data: T;
-}
-
 onMounted(() => {
-  userStore.fetchStudents(true);
+  napramStore.fetchNaprams(true);
 
   /* userService
     .getListStudents()
@@ -154,4 +166,10 @@ onMounted(() => {
       console.error('Ошибка при загрузке пользователей:', err);
     }); */
 });
+
+/* watch(changeDialogVisible, (newVal) => {
+  if (newVal && selectedItem.value) {
+    napramStore.setOldNapramName(selectedItem.value.name);
+  }
+}); */
 </script>

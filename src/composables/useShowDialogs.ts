@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { CreatedUser } from '../interfaces/create/createUser';
 
-export function useDialog<T extends CreatedUser>() {
+export function useDialog<T /* extends CreatedUser */>() {
   const selectedItem = ref<T | null>(null);
   const changeDialogVisible = ref<boolean>(false);
   const deleteDialogVisible = ref<boolean>(false);

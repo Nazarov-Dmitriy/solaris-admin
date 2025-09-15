@@ -65,6 +65,12 @@ const router = createRouter({
           meta: { protected: true },
         },
         {
+          path: '/naprams',
+          name: 'naprams',
+          component: () => import('../features/naprams/NapramsPage.vue'),
+          meta: { protected: true },
+        },
+        {
           path: '/:pathMatch(.*)*',
           name: '404',
           component: () => import('../views/NotFoundPage.vue'),

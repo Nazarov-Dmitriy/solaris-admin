@@ -10,6 +10,7 @@
         <div class="nav-routers">
           <RouterLink to="/users">Пользователи</RouterLink>
           <RouterLink to="/competitions">Конкурсы</RouterLink>
+          <RouterLink to="/naprams">Направления</RouterLink>
           <RouterLink to="/certificates">Сертификаты</RouterLink>
           <RouterLink to="/mail">Почта</RouterLink>
           <RouterLink to="/shop">Сертификаты</RouterLink>

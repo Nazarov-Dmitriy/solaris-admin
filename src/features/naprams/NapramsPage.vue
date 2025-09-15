@@ -8,7 +8,7 @@
     <div v-if="isSearchVisible" class="flex justify-end">
       <UserMenuComponent />
     </div>
-    <CreateUserForm
+    <NapramForm
       v-if="
         selectedOption.value === 'create'
       "
@@ -20,15 +20,9 @@
 <script setup lang="ts">
 import SelectButton from 'primevue/selectbutton';
 import { onMounted, ref, watch } from 'vue';
-import UserTableComponent from '../components/UserTableComponent.vue';
-import CreateUserForm from '../../../components/form/CreateUserForm.vue';
-import CreateStudentForm from '../../../components/form/CreateStudentForm.vue';
-import CreateTeacherForm from '../../../components/form/CreateTeacherForm.vue';
-import StudentTableComponent from '../components/StudentTableComponent.vue';
-import TeacherTableComponent from '../components/TeacherTableComponent.vue';
-import UserMenuComponent from '../components/UserMenuComponent.vue';
-import { useRoute } from 'vue-router';
+import UserMenuComponent from '../user-admin/components/UserMenuComponent.vue';
 import NapramTableComponent from './components/NapramTableComponent.vue';
+import NapramForm from '../../components/form/NapramForm.vue';
 
 const options = ref([
   { label: 'Создать направление', value: 'create' },
