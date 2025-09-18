@@ -54,11 +54,15 @@
             class="px-6 py-4 text-sm text-center text-gray-800 border border-gray-300"
           >
             <div class="flex gap-2">
-              <Button
+              <!-- <Button
                 label="Редактировать"
                 severity="info"
                 @click="openChangeDialog(competition)"
-              />
+              /> -->
+              <RouterLink
+                class="p-button p-component p-button-info"
+                :to="`/competitions/${competition.id}`"
+              >Редактировать</RouterLink>
               <Button
                 label="Удалить"
                 severity="danger"

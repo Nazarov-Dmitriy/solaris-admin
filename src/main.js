@@ -13,6 +13,7 @@ import { createPinia } from 'pinia';
 import UserService from './core/services/UserService';
 import { definePreset } from '@primevue/themes';
 import TableService from './core/services/TableService';
+import Tooltip from 'primevue/tooltip';
 
 const pinia = createPinia();
 const app = createApp(App);
@@ -48,4 +49,5 @@ app.use(PrimeVue, {
 app.use(router).use(pinia);
 app.use(ToastService).use(ConfirmationService);
 app.use(UserService).use(TableService); //Самописные плагины
+app.directive('tooltip', Tooltip);
 app.mount('#app');

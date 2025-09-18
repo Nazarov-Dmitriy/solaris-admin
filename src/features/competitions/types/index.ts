@@ -1,4 +1,4 @@
-import { FileUpload } from 'primevue';
+import { DatePicker, FileUpload } from 'primevue';
 import InputText from 'primevue/inputtext';
 import Textarea from 'primevue/textarea';
 
@@ -18,7 +18,7 @@ export interface CreateFormField {
   label: string;
   id: string;
   model: string;
-  component: typeof InputText | typeof Textarea | typeof FileUpload;
+  component: typeof InputText | typeof Textarea | typeof FileUpload | typeof DatePicker;
   placeholder?: string;
   rows?: number;
   cols?: number;
@@ -30,4 +30,9 @@ export interface CreateFormField {
   accept?: string;
   invalidFileTypeMessage?: string;
   invalidFileLimitMessage?: string;
+  formats?: any;
+  tooltip?: string;
+  options?: {optionLabel: string, optionValue: string}[] | { name: string; surname: string; fathername: string; profeccion: string; competition_activities: string; user_id: string; teacherId: string; }[];
+  optionLabel?: string | ((option: any) => string);
+  optionValue?: string;
 }

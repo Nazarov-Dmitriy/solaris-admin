@@ -38,6 +38,12 @@ const router = createRouter({
           component: () =>
             import('../features/competitions/pages/CompetitionsPage.vue'),
           meta: { protected: true },
+          /* children: [
+            { path: '/:id', cpomponent: () => import('../features/competitions/pages/CompetitionUpdatePage.vue'), meta: { protected: true } },
+          ], */
+        },
+        {
+          path: '/competitions/:id', name: 'competitionUpdate', component: () => import('../features/competitions/pages/CompetitionUpdatePage.vue'), meta: { protected: true }
         },
         {
           path: '/mail',

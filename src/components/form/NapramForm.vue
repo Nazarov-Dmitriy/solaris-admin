@@ -61,14 +61,9 @@
 import { FileUpload, FileUploadSelectEvent, useToast } from 'primevue';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
-import {
-  createCompetition,
-} from '../../features/competitions/services/useCompetitions';
 import { CreateFormField } from '../../features/competitions/types';
 import { computed, ref, watch } from 'vue';
 import { useNapramStore } from '../../stores/napramStore';
-import getBinaryFromFile from '../../utils/getBinaryFromBlob';
-import isText from '../../utils/isText';
 import isNotNullable from '../../utils/isNotNullable';
 
 const napramFields = ref<{name: string, image: string | File[]}>({
@@ -86,11 +81,9 @@ async function handleSumbitNapram() {
     try {
       let napramFormData
       if(isNotNullable(napramForm.value)){
-        napramFormData = new FormData(/* napramForm.value */)
-        /* console.log(napramFormData)
-        console.log(napramForm.value) */
+        napramFormData = new FormData()
         napramFormData.append('name', napramFields.value.name)
-        napramFormData.append('image', /* await getBinaryFromFile( */napramFields.value.image[0]/* ) */)
+        napramFormData.append('image', napramFields.value.image[0])
         console.log(napramFormData)
         console.log(napramFormData.get('name'))
         console.log(napramFormData.get('image'))
